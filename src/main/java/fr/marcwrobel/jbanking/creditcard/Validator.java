@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
-  
+
 private final String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
     "(?<mastercard>5[1-5][0-9]{14})|" +
     "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
@@ -19,11 +19,11 @@ private final Pattern pattern = Pattern.compile(regex);
 
 
 
-  public String cardType(String cards) {
-    
-   // if (isValidCard(card)) {
-    String card = cards.replaceAll("-", "");
-    Matcher matcher = pattern.matcher(card);
+  public String cardType(String card) {
+
+   if (isValidCard(card)) {
+      Matcher matcher = pattern.matcher(card);
+      matcher.matches();
       //If card is valid then verify which group it belong
       if(matcher.group("visa") != null) {
         return "Visa";
@@ -38,9 +38,9 @@ private final Pattern pattern = Pattern.compile(regex);
       } else if (matcher.group("jcb") != null) {
         return "JCB";
       }
-    //}
+    }
     return "Not Valid";
-  } 
+  }
 
   public boolean isValidCard(String cards) {
     //Strip all hyphens
@@ -70,12 +70,6 @@ private final Pattern pattern = Pattern.compile(regex);
       alternate = !alternate;
     }
     return (sum % 10 == 0);
-
-  }
-  public static void main(String[] args) {
-    Validator validator = new Validator();
-
-    System.out.println(validator.cardType("5328327812382837"));
   }
 
 }
